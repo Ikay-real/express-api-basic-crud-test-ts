@@ -29,7 +29,7 @@ export const initDB = async (): Promise<void> => {
 export const createUserDB = async (user: User): Promise<User> => {
   const { username, email, password } = user;
 
-  console.log("data", user);
+  console.log("data ", user);
 
   const result = await db.run(
     'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
