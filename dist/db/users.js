@@ -33,7 +33,7 @@ const initDB = () => __awaiter(void 0, void 0, void 0, function* () {
 exports.initDB = initDB;
 const createUserDB = (user) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = user;
-    console.log("data", user);
+    console.log("data ", user);
     const result = yield db.run('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', username, email, password);
     if (result && typeof result.lastID === 'number') {
         const lastInsertedId = result.lastID;
