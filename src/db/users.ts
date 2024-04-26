@@ -1,5 +1,5 @@
+import { Database, open } from 'sqlite';
 import sqlite3 from 'sqlite3';
-import { open, Database } from 'sqlite';
 
 // Define User type
 export interface User {
@@ -13,7 +13,7 @@ let db: Database<sqlite3.Database, sqlite3.Statement>;
 
 export const initDB = async (): Promise<void> => {
   db = await open({
-    filename: './src/db/users.db',
+    filename: './database/users.db',
     driver: sqlite3.Database,
   });
   await db.exec(`
@@ -29,19 +29,19 @@ export const initDB = async (): Promise<void> => {
 export const createUserDB = async (user: User): Promise<User> => {
   const { username, email, password } = user;
 
-  console.log("data",user);
-  
+  console.log("data", user);
+
   const result = await db.run(
     'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
     username,
     email,
     password
   );
-  
+
   if (result && typeof result.lastID === 'number') {
     const lastInsertedId = result.lastID;
     const createdUser = await getUserByIdDB(lastInsertedId);
-    
+
     // Check if createdUser is defined before returning
     if (createdUser) {
       return createdUser;
